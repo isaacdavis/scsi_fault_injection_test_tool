@@ -72,7 +72,7 @@ function save_entry_next:long (cmd:long)
 %}
 
 
-probe module("*").function("scsi_delete_timer@drivers/scsi/scsi_error.c") {
+probe kernel.function("scsi_delete_timer@drivers/scsi/scsi_error.c") {
 
         if(global_scmd == $scmd)
         {
@@ -82,7 +82,7 @@ probe module("*").function("scsi_delete_timer@drivers/scsi/scsi_error.c") {
         }
 }
 
-probe module("*").function("scsi_delete_timer@drivers/scsi/scsi_error.c").return {
+probe kernel.function("scsi_delete_timer@drivers/scsi/scsi_error.c").return {
 
         if(global_scmd == $scmd)
         {
@@ -94,7 +94,7 @@ probe module("*").function("scsi_delete_timer@drivers/scsi/scsi_error.c").return
         }
 }
 
-probe module("*").statement("scsi_add_timer@drivers/scsi/scsi_error.c") 
+probe kernel.statement("scsi_add_timer@drivers/scsi/scsi_error.c") 
 {
         if((target_access_t != 0) && (global_scmd == $scmd))
         {

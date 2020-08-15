@@ -98,7 +98,7 @@ function get_inode:long (page:long)
 %}
 
 
-probe module("*").function("scsi_decide_disposition@drivers/scsi/scsi_error.c")
+probe kernel.function("scsi_decide_disposition@drivers/scsi/scsi_error.c")
 {
         scmd_direction = $scmd->sc_data_direction 
 
@@ -125,7 +125,7 @@ probe module("*").function("scsi_decide_disposition@drivers/scsi/scsi_error.c")
         }
 }
 
-probe module("*").function("scsi_next_command@drivers/scsi/scsi_lib.c") 
+probe kernel.function("scsi_next_command@drivers/scsi/scsi_lib.c") 
 {
         if((target_access != 0) && (target_scmd == $cmd))
         {
@@ -137,7 +137,7 @@ probe module("*").function("scsi_next_command@drivers/scsi/scsi_lib.c")
         }
 }
 
-probe module("*").function("scsi_dispatch_cmd@drivers/scsi/scsi.c") 
+probe kernel.function("scsi_dispatch_cmd@drivers/scsi/scsi.c") 
 {
         struct_bio= $cmd->request->bio
         block = $cmd->request->__sector
